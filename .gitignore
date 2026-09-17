@@ -1,0 +1,28 @@
+# CMake build directories
+/out/
+/cmake-build-*/
+/build-*/
+
+# Python env
+/venv/
+*.pyc
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+CTestTestfile.cmake
+compile_commands.json
+Makefile
+*.cmake
+install_manifest.txt
+
+# Testing and dependency artifacts
+Testing/
+_Dependencies/
+
+# IDE files
+.vscode/
+.idea/
+
