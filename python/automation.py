@@ -30,7 +30,12 @@ def generate_graph(exec_path: pth.Path, output_dir: pth.Path, seed: int, num_nod
     try: 
         process = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except Exception as err:
+        print("-"*50)
+        print("It might be the case that executable files aren't compiled for your operating system. Refer to readme.md for instructions.")
         print("Unable to generate graphs.", args,  err, sep="\n")
+        print("-"*50)
+        raise err
+
 
 
 def find_optimal_vertex_cover(exec_path: pth.Path, graph_file: pth.Path, output_dir: pth.Path) -> None:
@@ -43,7 +48,11 @@ def find_optimal_vertex_cover(exec_path: pth.Path, graph_file: pth.Path, output_
     try: 
         process = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except Exception as err:
+        print("-"*50)
+        print("It might be the case that executable files aren't compiled for your operating system. Refer to readme.md for instructions.")
         print("Unable to find optimal vertex cover.", args,  err, sep="\n")
+        print("-"*50)
+        raise err
 
 
 def find_approx_vertex_cover(exec_path: pth.Path, graph_file: pth.Path, output_dir: pth.Path) -> None:
@@ -56,7 +65,11 @@ def find_approx_vertex_cover(exec_path: pth.Path, graph_file: pth.Path, output_d
     try: 
         process = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except Exception as err:
+        print("-"*50)
+        print("It might be the case that executable files aren't compiled for your operating system. Refer to readme.md for instructions.")
         print("Unable to find approximate vertex cover.", args,  err, sep="\n")
+        print("-"*50)
+        raise err
 
 
 def visualise_and_get_data(graph_file: pth.Path, vertex_cover_path: pth.Path, approx_path: pth.Path, output_dir: pth.Path) -> dict:
@@ -74,6 +87,14 @@ def main():
     graph_generator_exec = executable_dir.joinpath("graph_generator")
     vertex_exec = executable_dir.joinpath("vertex")
     vertex_approx_exec = executable_dir.joinpath("vertex_approx")
+
+    if not graph_generator_exec.exists() or \
+       not vertex_exec.exists() or \
+       not vertex_approx_exec.exists():
+       print(f"Please ensure that {executable_dir} contains the following binaries: ")
+       print(f"- {vertex_exec.name}\n- {graph_generator_exec.name}\n- {vertex_approx_exec.name}")
+       print("Refer to readme.md for instructions to compile.")
+       return
 
 
     graph_dir = res.joinpath("graphs")
@@ -128,15 +149,14 @@ def main():
 
         data_rows.append(data_r)
 
-    header_row1 = ['(n, m)', 'P1', '', 'P2', '', '']
-    header_row2 = ['', 'BF', '', 'AA', '', '']
+    header_row2 = ['(n, m)', 'BF', '', 'AA', '', '']
     header_row3 = ['', 'Size', 'Time (in seconds)', 'Size', 'AF', 'Time (in seconds)']
 
     csv_file = res.joinpath("table_data.csv")
 
     with open(csv_file, 'w') as file:
         table = csv.writer(file)
-        table.writerows([header_row1, header_row2, header_row3])
+        table.writerows([header_row2, header_row3])
         table.writerows(data_rows)
 
 
