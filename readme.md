@@ -29,6 +29,14 @@ cmake ..
 cmake --build .
 ```
 
+Run following commands in case of Windows Host for compiling
+```bash
+mkdir build
+cd ./build
+cmake .. -G "MinGW Makefiles"
+cmake --build .
+```
+
 
 ## Python Project
 In the root directory of project (i.e. problem1), run following commands to setup python 
