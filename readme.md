@@ -2,8 +2,14 @@
 
 ## Execution
 If running on unix like operating system, run the following, from the root directory (i.e. same directory as this file)
-```
+
+```bash
 python ./python/automation.py --executable_dir ./build --resources ./resources --seed 7 --num_nodes 20 --step_size 10
+```
+
+If you are running the command from windows host, please run these commands instead in cmd (and not in powershell)
+```bash
+python  .\python\automation.py --executable_dir .\build --resources .\resources --seed 7 --num_nodes 20 --step_size 10 --windows
 ```
 
 Output would be available in 
@@ -43,5 +49,12 @@ In the root directory of project (i.e. problem1), run following commands to setu
 ```bash
 python -m venv venv
 source venv/bin/activate
+pip install -r ./python/requirement.txt
+```
+
+Run these commands instead if you are running it on windows host. 
+```bash
+python -m venv venv
+.\venv\Scripts\activate
 pip install -r ./python/requirement.txt
 ```

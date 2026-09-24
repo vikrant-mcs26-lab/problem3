@@ -14,6 +14,7 @@ def parse() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, help="Seed for prng")
     parser.add_argument("--num_nodes", type=int, help="Number of nodes in randomly generated graphs")
     parser.add_argument("--step_size", type=int, help="Step size when generating edges.")
+    parser.add_argument("--windows",action="store_true")
 
     return parser.parse_args()
 
@@ -84,9 +85,14 @@ def main():
     res = pth.Path(opts.resources)
     executable_dir = pth.Path(opts.executable_dir)
 
-    graph_generator_exec = executable_dir.joinpath("graph_generator")
-    vertex_exec = executable_dir.joinpath("vertex")
-    vertex_approx_exec = executable_dir.joinpath("vertex_approx")
+    if opts.windows:
+        graph_generator_exec = executable_dir.joinpath("graph_generator.exe")
+        vertex_exec = executable_dir.joinpath("vertex.exe")
+        vertex_approx_exec = executable_dir.joinpath("vertex_approx.exe")
+    else:
+        graph_generator_exec = executable_dir.joinpath("graph_generator")
+        vertex_exec = executable_dir.joinpath("vertex")
+        vertex_approx_exec = executable_dir.joinpath("vertex_approx")
 
     if not graph_generator_exec.exists() or \
        not vertex_exec.exists() or \
